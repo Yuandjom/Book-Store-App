@@ -1,21 +1,16 @@
 const express = require("express")
 const router = express.Router();
 const Book = require("../model/Book") //this is to get the model 
+const booksController = require("../controllers/books-controller");
 
-router.get("/", async (req, res, next) =>{
-    //this route will provide all of the books 
-    let books;
-    try{
-        books = await Book.find();
-    } catch(err){
-        console.log(err);
-    }
+router.get('/', booksController.getAllBooks);
+//this is to send the data to the database
+router.post('/', booksController.addBook);
+//get the product by id
+router.get('/:id', booksController.getById);
 
-    if(!books){
-        return res.status(404).json({message: "No products found"})
-    }
+router.put("/:id", booksController.updateBook);
 
-    return res.status(200).json({books})
-})
+router.delete("/:id", booksController.deleteBook);
 
 module.exports = router

@@ -5,6 +5,7 @@ const router = require("./routes/book-routes")
 const app = express();
 
 //Middlewares
+app.use(express.json()); //convert all the responses to JSON
 app.use("/books", router); //localhost:5000/books
 
 mongoose
